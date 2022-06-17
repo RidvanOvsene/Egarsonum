@@ -1,0 +1,120 @@
+﻿@model MyDigitalMenu.ViewModel.MainModel
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<style>
+
+    /*.language-options {
+        color: white !important;
+        text-align: center;
+        font-size: 14px;
+        display: inline;
+        background-color: #79B041;*/
+        /*background-color: rgba(0,0,0,.6);*/
+        /*border-radius: 1242px;
+        width: max-content;
+        margin: 20px auto 0;
+        padding: 4px 4px 4px 13px
+    }*/
+
+        .language-options i {
+            margin-right: 5px
+        }
+
+        .language-options a:hover {
+            text-decoration: underline
+        }
+
+    .logo1 {
+        position: absolute;
+        left: 32%;
+        top: 3%;
+        z-index: 5;
+        width: 30%;
+        height: auto;
+        min-width: 139px;
+        min-height: auto;
+        z-index: 2;
+    }
+
+    .language-options {
+        z-index: 5;
+        color: white;
+        text-align: center;
+        font-size: 10px;
+        display: inline;
+        background-color: #79B041;
+        /*  background-color: rgba(0,0,0,.6);*/
+        border-radius: 1242px;
+        width: max-content;
+          margin: 20px auto 0;
+        padding: 4px 4px 4px 13px;
+        font-size: 1.5vw;
+    }
+
+    .catagories {
+        grid-gap: 30px;
+        max-width: 960px;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 100px;
+        grid-auto-flow: row dense;
+        max-width: 90%;
+        max-height: 50%;
+        margin: 0 auto 20px;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        border-style: outset;
+        margin-bottom: 2%;
+        height: 30% !important;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<img src="~/images/arka_plan.png" style="width:auto;height:20% !important ;" />
+<div class="center-block row"><img class="logo1 fa-align-center" src="~/images/web_logo.png" /></div>
+
+
+<div class="row" style="margin-left:5%; margin-top:13px;">
+    <div class="col-4">
+        <a class="row" href="https://www.instagram.com/saklivadikartepe" target="_blank">
+            <img src="https://kokoyakisushi.dijital.menu/img/insta-badge.png" width="150">
+        </a>
+    </div>
+    <div class="col-4">
+        <span class="language-options" @*style="margin-top:13px;"*@>
+            <b> <a href="/Category/ChangeLanguage?CultureId=1&id=@ViewBag.RestaurantId&TableId=@ViewBag.TableId" style="color:white ;margin-right: 10px; font-weight: bold;">Türkçe</a></b>
+            <b> <a href="/Category/ChangeLanguage?CultureId=2&id=@ViewBag.RestaurantId&TableId=@ViewBag.TableId" style="color: white; margin-right: 10px;">English</a></b>
+            <b> <a href="/Category/ChangeLanguage?CultureId=3&id=@ViewBag.RestaurantId&TableId=@ViewBag.TableId" style="color: white; margin-right: 10px; ">عربي</a></b>
+        </span>
+    </div>
+</div>
+<br />
+
+
+<div id="_print" style="background-color:#EDF2F7">
+    <br />
+    @foreach (var product in Model.Category)
+    {
+        if (Model.Language.FirstOrDefault(x => x.Code == product.Code) != null)
+        {
+            <div class="catagories col-5  center-block" style="background-color: #79B041; ">
+                <a style=" text-align: center; padding-left: 5%; color: white; font-size: 20px; background-image: url(https://localhost:44307/images/arka_plan.png); background-repeat: no-repeat; "
+                   class=" !important btn-lg @*btn-block*@ center-block" href="~/Menu/Foods?id=@product.CategoryId&RestaurantId=@ViewBag.RestaurantId&TableId=@ViewBag.TableId">
+                    <b style="font-size:3vw">@Model.Language.FirstOrDefault(x => x.Code == product.Code).Text</b>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="catagories col-5 center-block" style="background-color: #79B041; height: 54% !important; background-repeat: no-repeat; ">
+                <a style="text-align: center; color: white; font-size: 20px; background-image: url(~/FoodImages/arka_plan.png);" class=" !important btn-lg btn-block center-block" href="~/Menu/Foods?id=@product.CategoryId&RestaurantId=@ViewBag.RestaurantId&TableId=@ViewBag.TableId"><b style="font-size:3vw">@product.CategoryName</b></a>
+            </div>
+        }
+    }
+</div>
+@*<div>
+        <p style="background-image: url(https://localhost:44307/images/arka_plan.png); background-repeat: no-repeat; ">Rıdvan Övsene</p>
+    </div>*@
+

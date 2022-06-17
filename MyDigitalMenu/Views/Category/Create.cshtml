@@ -1,0 +1,107 @@
+﻿@model MyDigitalMenu.Models.Category
+@{
+    ViewBag.Title = "Create" +
+                "" +
+                "ate";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+
+}
+@if (Model == null)
+{
+    <h2>Kategori ekle</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        <label for="ksayi">Kategori Adı</label>
+                        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", @type = "text", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Sırası</label>
+                        @Html.EditorFor(model => model.CategorySortOrder, new { htmlAttributes = new { @class = "form-control", @type = "number", min = 1, required = "required" } })
+                        @Html.ValidationMessageFor(model => model.CategorySortOrder, "", new { @class = "text-danger" })
+                    </div>
+
+                    @*<label for="itel">Resim Seçin</label>
+                    <div class="form-group row col-md-12">
+                        <div class="">
+                            <input accept="image/jpeg" type="file" name="file" value="" id="file" required />
+                            <span style="color:red" class="text-muted ml-5 ">
+                                <i style="color:red" class="fa fa-exclamation-triangle"></i>
+                                <span style="color:red">Resim  türü jpg olmalıdır!</span>
+                            </span>
+                            <input type="hidden" name="ImagePath" value="" />
+                            @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
+                            <p class="text-danger" id="output"></p>
+                        </div>
+                    </div>*@
+                    <br />
+                    <button class="btn btn-success btn-icon-split btn-sm mb-2 ml-3" type="submit" value="Oluştur">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <span class="text">Ekle</span>
+                    </button>
+                    <div class="form-group">
+                        <br />
+                        <a href="~/Category/List"><i class="fa fa-arrow-left"></i><b> Geri </b></a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h2>Kategori Düzenle</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @using (Html.BeginForm("Edit", "Category", new { Id = Model.CategoryId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        <label for="ksayi">Kategori Adı</label>
+                        <input class="form-control" type="text" name="CategoryName" value="@Model.CategoryName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Sırası</label>
+                        <input class="form-control" type="number" name="CategorySortOrder" value="@Model.CategorySortOrder" required />
+                    </div>
+                    @*<div class="form-group">
+                            <label for="ksayi">Resim</label>
+                            <input class="form-control" type="url" name="ImagePath" value="@Model.ImagePath" required />
+                        </div>*@
+                    @*<div>
+                        <label for="formFileMultiple" class="form-label">Resim</label>
+                        <img id="myImg" style="border-radius: 20%;margin-top:0.6%" src="~/FoodImages/@Model.ImagePath" alt="food" class="img-responsive">
+
+                    </div>
+                    <div class="col-7">
+
+                        <input name="file" value="@Model.ImagePath" class="form-control" type="file" id="formFileMultiple" multiple />
+                    </div>*@
+                    <br />
+                    <button class="btn btn-success btn-icon-split btn-sm mb-2 ml-3" type="submit" value="Düzenle">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <span class="text">Düzenle</span>
+                    </button>
+
+                    <div class="form-group">
+                        <br />
+                        <a href="~/Category/List"><i class="fa fa-arrow-left"></i><b> Geri </b></a>
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+}
+
+

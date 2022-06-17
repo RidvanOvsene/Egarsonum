@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .login-box {
+        /*    margin-top: 75px;
+        height: auto;
+        background: #1A2226;
+        text-align: center;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);*/
+        width: 50%;
+        border-radius: 20px;
+        box-shadow: 0 5px 5px rgba(0,0,0,.4);
+        margin: 10em;
+        display: flex;
+        text-align: center;
+        height: 50%;
+        background: #bdbbb9;
+    }
+</style>
+
+<!-- Flat make resvervation -->
+<section class="flat-row contact-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                @*<div class="reservation-page-right">
+                        <img src="images/maketrevation/1.png" class="img-responsive" alt="reservation-banner">
+                    </div>*@
+            </div>
+
+
+            <div class="col-xs-8 login-box">
+                <div class="reservation-page-left">
+
+                    <div class="reservation-page-form">
+
+                        <div class="title-section">
+                            <h1 class="title">Kullanıcı Kayıt</h1><br />
+                            <label>Lütfen kullanıcı bilgilerini ekleyiniz.</label>
+                        </div>
+
+                        <form style=" margin: 5em;" id="reservation-form" action="Account/Create" novalidate="novalidate">
+                            <div class="reservation-page-input-box col-md-12">
+                                <label>Kullanıcı Adı</label>
+                                <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="UserName" id="form-name" data-error="Subject field is required" required="">
+                            </div>
+                            <div class="reservation-page-input-box col-md-12">
+                                <label>Şifre</label>
+                                <input type="password" class="form-control" placeholder="Şifre" name="Password" id="form-phone" data-error="Subject field is required" required="">
+                            </div>
+                            <div class="reservation-page-input-box col-md-12">
+                                <label>Email</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" name="Email" id="form-email" data-error="Subject field is required" required="">
+                            </div>
+
+                            <div class="reservation-page-input-box col-md-12">
+                                <label>Şirket Adı</label>
+                                <input type="text" class="form-control rt-date" placeholder="Subjects" name="CompanyName" id="form-subjects" data-error="Subject field is required" required="">
+                            </div>
+
+                            <div class="reservation-page-input-box col-md-12">
+                                <label>Rol</label>
+                                @*<textarea class="form-control your-message" placeholder="Your message" name="Role" id="form-message"></textarea>*@
+                                <input type="text" class="form-control rt-date" placeholder="Subjects" name="CompanyName" id="form-subjects" data-error="Subject field is required" required="">
+                            </div>
+                            <div class="reservation-page-input-box col-md-12">
+                                <label>Rol</label>
+                                @*<textarea class="form-control your-message" placeholder="Your message" name="Role" id="form-message"></textarea>*@
+                                <input type="text" class="form-control rt-date" placeholder="Subjects" name="CompanyName" id="form-subjects" data-error="Subject field is required" required="">
+                            </div>
+                            <br />
+                            <div class="reservation-booking">
+                                <button type="submit" class="book-now-btn">Kayıt</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div><!--col-md-7-->
+        </div><!--row-->
+    </div><!--container -->
+</section>
+
+

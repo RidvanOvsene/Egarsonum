@@ -1,0 +1,48 @@
+﻿@model  List<MyDigitalMenu.ViewModel.DinnerTableViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<br />
+<div class="row">
+    <div class="form-group col-12">
+        @using (Html.BeginForm("MasaTasi", "Masa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="mb-1">
+                <label class="form-label" for="first-name-vertical">Masalar</label>
+                <input type="text" style="display:none" name="BeforeTableId" value="@ViewBag.BeforeTableId " />
+                <select class="select2 form-select" name="TableId" id="select2-basic">
+                    @foreach (var Masa in ViewBag.MasaTasi)
+                    {
+
+                        <option selected value="@Masa.TableId">@Masa.TableName</option>
+
+                    }
+                </select>
+            </div>
+            @*<input type="number" name="Sira" value="@Model.TableSortOrder" placeholder="Masa Numarasını Giriniz" />*@
+
+            <input type="submit" name="name" value="Kayit" />
+        }
+    </div>
+</div>
+
+

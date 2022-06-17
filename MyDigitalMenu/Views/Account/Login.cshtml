@@ -1,0 +1,65 @@
+﻿@model MyDigitalMenu.Models.UserIdentity.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Login</h2>*@
+<style>
+
+    .login-box {
+        /*    margin-top: 75px;
+        height: auto;
+        background: #1A2226;
+        text-align: center;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);*/
+        width: 50%;
+        border-radius: 20px;
+        box-shadow: 0 5px 5px rgba(0,0,0,.4);
+        margin: 10em;
+        display: flex;
+        text-align: center;
+        height: 50%;
+        background: #bdbbb9;
+    }
+</style>
+
+
+<!-- Flat make resvervation -->
+<section class="flat-row contact-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" style=" background: #bdbbb9; margin-top:10% !important">
+                <div class="reservation-page-left">
+
+                    <div class="reservation-page-form">
+
+                        <div class="title-section">
+                            <h1 class="title">Giriş</h1><br />
+                            <label>Lütfen kullanıcı adınız ve şifrenizi giriniz.</label>
+                        </div>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="reservation-page-input-box col-xs-12">
+                                <label>Kullanıcı Adı</label>
+                                <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="UserName" id="form-name" data-error="Subject field is required" required="">
+                            </div>
+                            <div class="reservation-page-input-box col-xs-12">
+                                <label>Şifre</label>
+                                <input type="password" class="form-control" placeholder="Şifre" name="Password" id="form-phone" data-error="Subject field is required" required="">
+                            </div>
+                            <div class="reservation-booking">
+                                <button type="submit" class="book-now-btn">Giriş</button>
+                            </div>
+                            <br />
+                        }
+                    </div>
+                </div>
+            </div><!--col-md-7-->
+        </div><!--row-->
+    </div><!--container -->
+</section>

@@ -1,0 +1,172 @@
+﻿@model MyDigitalMenu.Models.Food
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+
+@if (ViewBag.Foods == null)
+{
+    <h2>Yemek Ekle</h2>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                @using (Html.BeginForm("Create", "Food", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="form-group">
+                        <label for="ksayi">Kategori Adı</label>
+                        @Html.DropDownListFor(model => model.CategoryId, ViewBag.GetData as SelectList, new { htmlAttributes = new { @class = "form-control", @type = "text", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Yemek Adı</label>
+
+                        @Html.EditorFor(model => model.FoodName, new { htmlAttributes = new { @class = "form-control", @type = "text", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.FoodName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Fiyat</label>
+                        @Html.EditorFor(model => model.FoodPrice, new { htmlAttributes = new { @class = "form-control", @type = "number", min = 1, required = "required" } })
+                        @Html.ValidationMessageFor(model => model.FoodPrice, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Sırası</label>
+                        @Html.EditorFor(model => model.FoodSortOrder, new { htmlAttributes = new { @class = "form-control", @type = "number", min = 1, required = "required" } })
+                        @Html.ValidationMessageFor(model => model.FoodSortOrder, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="member" name="member" placeholder="Malzeme Sayısı" value="" required><br />
+                        <button class="btn btn-success btn-icon-split btn-sm mb-2 ml-3" type="button" id="filldetails" name="name" onclick="addFields()">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                        </button>
+                        <div id="container" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ksayi">Açıklama</label>
+                        @Html.TextAreaFor(model => model.FoodDescription, new
+                   {
+                       htmlAttributes = new
+                       {
+                           @class = "form-control",
+                           @type = "text",@*required = "required"*@}
+})
+                        @Html.ValidationMessageFor(model => model.FoodDescription, "", new { @class = "text-danger" })
+                    </div>
+                    <label for="itel">Resim Seçin</label>
+                    <div class="form-group row col-md-12">
+
+                        <div class="">
+                            <input accept="image/jpeg" type="file" name="file" value="" id="file" required />
+                            <span style="color:red" class="text-muted ml-5 ">
+                                <i style="color:red" class="fa fa-exclamation-triangle"></i>
+                                <span style="color:red">Resim  türü jpg olmalıdır!</span>
+                            </span>
+                            <input type="hidden" name="ImageUrl" value="" />
+                            @Html.ValidationMessageFor(model => model.FoodImageUrl, "", new { @class = "text-danger" })
+                            <p class="text-danger" id="output"></p>
+                        </div>
+                    </div>
+                    <br />
+                    <button class="btn btn-success btn-icon-split btn-sm mb-2 ml-3" type="submit" value="Oluştur">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <span class="text">Ekle</span>
+                    </button>
+
+                }
+            </div>
+        </div>
+
+        <div class="title-section style1 martp-0px">
+            <div class="top-section col-xs-12">
+                <a style="text-align: center;color: #e44c2a" class="btn btn-outline-dark !important btn-lg btn-block" href="~/Manager/Management"><i style="color: #e44c2a" class="fa fa-arrow-left"></i> Ürün Listesi</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+
+    <h2>Ürün Düzenle</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @using (Html.BeginForm("Edit", "Food", new { Id = ViewBag.Foods.FoodId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @*<div class="form-group">
+                <label for="ksayi">Kategori Adı</label>
+                <input class="form-control" type="text" name="Id" value="@Model.CategoryId" />
+            </div>*@
+                    <div class="form-group">
+                        <label for="ksayi">Yemek Adı</label>
+                        <input class="form-control" type="text" name="FoodName" value="@ViewBag.Foods.FoodName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Sırası</label>
+                        <input class="form-control" type="number" name="FoodSortOrder" value="@ViewBag.Foods.FoodSortOrder" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Fiyatı</label>
+                        <input class="form-control" type="number" name="FoodPrice" value="@ViewBag.Foods.FoodPrice" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ksayi">Açıklma</label>
+                        <input class="form-control" type="text" name="FoodDescription" value="@ViewBag.Foods.FoodDescription" />
+                    </div>
+                    <div>
+                        <img id="myImg" style="border-radius: 20%;margin-top:0.6%" src="~/FoodImages/@ViewBag.Foods.FoodImageUrl" alt="food" class="img-responsive">
+
+
+                    </div>
+                    <div class="col-7">
+                        <label for="formFileMultiple" class="form-label">Resim</label>
+
+                        <input name="file" value="@ViewBag.Foods.FoodImageUrl" class="form-control" type="file" id="formFileMultiple" multiple />
+                    </div>
+                 
+                  
+                
+                    <br />
+                    <button class="btn btn-success btn-icon-split btn-sm mb-2 ml-3" type="submit" value="Düzenle">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <span class="text">Düzenle</span>
+                    </button>
+
+
+
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type='text/javascript'>
+    function addFields() {
+        // Number of inputs to create
+        var number = document.getElementById("member").value;
+        // Container <div> where dynamic content will be placed
+        var container = document.getElementById("container");
+        // Clear previous contents of the container
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (i = 0; i < number; i++) {
+            // Append a node with a random text
+            container.appendChild(document.createTextNode("Malzeme " + (i + 1)));
+            // Create an <input> element, set its type and name attributes
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "Member" + i;
+            container.appendChild(input);
+            // Append a line break
+            container.appendChild(document.createElement("br"));
+        }
+    }
+</script>

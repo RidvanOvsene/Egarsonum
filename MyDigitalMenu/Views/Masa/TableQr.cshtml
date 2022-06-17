@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "TableQr";
+    //Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+<style>
+    table {
+        font-size: 12px;
+        background-color: white !important;
+    }
+
+    img {
+        margin-left: 1px;
+        margin-bottom: 1px;
+    }
+
+    @@page {
+        margin: 0mm;
+        margin-left: 6px;
+        margin-top: -25px;
+    }
+</style>
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>*@
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-5">
+    <i style="color:green" class="fa fa-print fa-3x" onclick="PrintPdf()"></i>
+    <a style="float:right !important; margin-right:5% !important" href="@Url.Action("TableList", "Masa")" class="btn btn-default">X</a>
+</div>
+<br />
+<br />
+<br />
+<center>
+    <div id="QrDiv" class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-md-11 col-lg-11 col-sm-11 col-xs-11">
+        <br />
+        <div class="mb-5" style="border: 5px solid black; border-radius: 30px; width: 40%;min-width:350px; padding: 0px  -10px;">
+            <h1 style="margin-top:2%">
+                <b> @ViewBag.CompanyName</b>
+            </h1>
+            <h1>Menü</h1>
+            <table style="width: 85mm; height:40mm; table-layout: fixed">
+                <tr>
+                    <td rowspan="7"><img style="margin-left:5%" src="@ViewBag.Qr" alt="Qr" /></td>
+                </tr>
+            </table>
+            <h3>Kameranız ile qr kodu taratın.</h3>
+            <h3>Scan the qr code with your camera.</h3>
+            <h3>امسح رمز الاستجابة السريعة بالكاميرا</h3>
+            <a style=" text-decoration: none" href="http://egarsonum.net/">
+                <h3>www.egarsonum.net</h3>
+            </a>
+            <h1 style="background-color: black; margin: 5%">
+                <span style="color: white; ">
+                    @ViewBag.SectionName  -  @ViewBag.TableName
+                </span>
+            </h1>
+        </div>
+    </div>
+</center>
+<br />
+<br />
+<script>
+    function PrintPdf() {
+        var divToPrint = document.getElementById('QrDiv');
+        var newWin = window.open('', 'Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+        newWin.document.close();
+        setTimeout(function () { newWin.close(); }, 10);
+    }
+</script>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.min.js"></script>
+    <script>
+        function PrintPdf() {
+            $("#QrDiv").print({
+                // Genel ayarlar
+                globalStyles: true,
+                // Geçerli URL bilgisini de yazdır
+                mediaPrint: false,
+                //Font
+                stylesheet: "http://fonts.googleapis.com/css?family=Inconsolata",
+                //Gizli iframe yazdır
+                iframe: false,
+                // Bu alanı yazdırmaz
+                noPrintSelector: ".avoid-this",
+                // Üste ekleme yapar
+                append: " <br/>",
+                // Alta ekleme yapar
+                prepend: "<br/>Numune",
+                // Manuel olarak form verilerini yükler
+                manuallyCopyFormValues: true,
+                // Yazdırma sonrası kodu yeniden yapılandırır.
+                deferred: $.Deferred(),
+                // timeout
+                timeout: 250,
+                // Başlık
+                title: "Numune",
+                // document tip
+                doctype: '<!doctype html>'
+            });
+        };
+    </script>*@
+

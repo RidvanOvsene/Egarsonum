@@ -1,0 +1,51 @@
+﻿@model  MyDigitalMenu.Models.DinnerTable
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<h2>Masa Ekle</h2>
+<br />
+<div class="row">
+    <div class="form-group col-12">
+        @using (Html.BeginForm("Edit", "Masa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-group">
+                <label for="ksayi">Kategori Adı</label>
+                @Html.DropDownList("Id", (IEnumerable<SelectListItem>)ViewBag.GetData, null, new { @class = "form-control" })
+
+            </div>
+            <input style="display:none !important" type="number" name="TableId" value="@Model.TableId" />
+            <div class="form-group">
+                <label for="ksayi">Masa Adı</label>
+                <input type="text" name="Adi" value="@Model.TableName" placeholder="Masa Adını Giriniz" />
+            </div>
+            @*<input type="text" name="Adi" value="@Model.TableName" placeholder="Masa Adını Giriniz" />*@
+            <div class="form-group">
+                <label for="ksayi">Masa Numarası</label>
+                <input type="number" name="Sira" value="@Model.TableSortOrder" placeholder="Masa Numarasını Giriniz" />
+            </div>
+            @*<input type="number" name="Sira" value="@Model.TableSortOrder" placeholder="Masa Numarasını Giriniz" />*@
+
+            <input type="submit" name="name" value="Kayit" />
+        }
+    </div>
+</div>
+
+

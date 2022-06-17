@@ -1,0 +1,140 @@
+﻿@model IEnumerable<MyDigitalMenu.ViewModel.FoodViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+
+@*<script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
+    <link href="~/Content/sweetalert/sweet-alert.css" rel="stylesheet" />*@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+@*import swal from 'sweetalert2';
+    window.Swal = swal;*@
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover text-center table-sm">
+            <thead>
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Fiyatı</th>
+                    <th>Malzemeler</th>
+                    <th>Açıklamalar</th>
+                    <th colspan="1" style="text-align: center"><b>Düzenle</b></th>
+                    <th colspan="1" style="text-align: center"><b>Sil</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FoodName</td>
+                        <td>@item.FoodPrice ₺</td>
+                        <td>@item.FoodItemText</td>
+                        <td>@item.FoodDescription</td>
+                        <td> <button class="btn btn-primary btn-sm" onclick="Edittem(@item.FoodId)"><span class="fa fa-edit"></span></button></td>
+                        <td>  <button id="btnDel" class="btn btn-danger btn-sm" onclick="DeleteItem(@item.FoodId)"><span class="fa fa-trash"></span></button></td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function Edittem(Id) {
+        var url = '/Food/Create/' + Id + '';
+        window.location.href = url;
+    }
+    function DeleteItem(id) {
+        debugger
+
+        swal({
+            title: "Emin misiniz?",
+            text: "Silinen kayıt geri getirilemez!",
+            icon: "warning",
+
+           /* buttons: true,*/
+
+            buttons: ["İptal", "Sil"],
+            dangerMode: true,
+            //confirmButtonText: 'Sil',
+            //cancelButtonText: 'İptal',
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Kayıt silindi!", {
+                        icon: "success",
+                        button: "Tamam", 
+                    });
+                    var url = '/Food/Delete/' + id + '';
+                    window.location.href = url;
+                } else {
+
+                    swal({
+                        text: "Silinmedi!",                     
+                        button: "Tamam",                    
+                        
+                    });
+
+                    //swal("Kayıt silindi!", {
+                    //    confirmButtonText: "Tamam",
+                    //});
+                }
+            });
+
+
+
+        //Swal.fire({
+        //    title: 'Silmek istediğinize emin misiniz?',
+        //    showDenyButton: true,
+        //    showCancelButton: true,
+        //    confirmButtonText: 'Sil',
+        //    denyButtonText: `Silme`,
+        //    cancelButtonText: 'İptal',
+        //}).then((result) => {
+        //    /* Read more about isConfirmed, isDenied below */
+        //    if (result.isConfirmed) {
+        //        Swal.fire('Silindi!', '', 'success')
+        //        var url = '/Food/Delete/' + id + '';
+        //        window.location.href = url;
+
+        //    } else if (result.isDenied) {
+        //        Swal.fire('Silinmedi', '', 'info')
+        //    }
+        //})
+
+
+
+        //var url = '/Food/Delete/' + id + '';
+        //window.location.href = url;
+    }
+</script>
+@*<script>
+        $('#btnDel').click(function () {
+            //Swal.fire({
+            //    title: 'Silmek istediğinize emin misiniz?',
+            //    showDenyButton: true,
+            //    showCancelButton: true,
+            //    confirmButtonText: 'Sil',
+            //    denyButtonText: `Silme`,
+            //    cancelButtonText: 'İptal',
+            //}).then((result) => {
+            //    /* Read more about isConfirmed, isDenied below */
+            //    if (result.isConfirmed) {
+            //        Swal.fire('Kaydedildi!', '', 'success')
+
+
+            //    } else if (result.isDenied) {
+            //        Swal.fire('Silinmedi', '', 'info')
+            //    }
+            //})
+
+        })
+
+
+
+    </script>*@

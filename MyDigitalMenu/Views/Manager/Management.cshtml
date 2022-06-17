@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Management";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div>
+        <strong class="h4 font-weight-bolder">Yönetici İşlemleri</strong><br>
+        <p class="lead">
+            @*Bu sayfa üzerinden bir çok yönetim işlemi gerçekleştirebilirsiniz.*@
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">BÖLÜM İŞLEMLERİ</div>
+                            <div class="h6 mb-0 text-gray-800">
+                                <li>
+                                    <a href="~/Masa/Section">
+                                        Yeni Bölüm Oluştur
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Masa/SectionList">Bölümleri Listele</a>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">MASA İŞLEMLERİ</div>
+                            <div class="h6 mb-0 text-gray-800">
+                                <li>
+                                    <a name="masalar" href="~/Masa/Index">
+                                        Yeni Masa Ekle
+                                    </a>
+                                </li>
+                                <li>
+                                    <a name="masalar" href="~/Masa/TableList">
+                                        Masalarım
+                                    </a>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-swatchbook fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">KATEGORİ İŞLEMLERİ</div>
+                            <div class="h6 mb-0 text-gray-800">
+                                <li>
+                                    <a href="~/Category/Create">
+                                        Yeni Kategori Oluştur
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Category/List">Kategorileri Listele</a>
+                                </li>
+                            </div>
+                        </div>
+
+
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">ÜRÜN İŞLEMLERİ</div>
+                            <div class="h6 mb-0 text-gray-800">
+                                <li>
+                                    <a href="~/Food/Create">Yeni Ürün Oluştur</a>
+                                </li>
+                                <li>
+                                    <a href="~/Food/Index">
+                                        Ürünleri Listele
+                                    </a>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-poll fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,459 @@
+﻿
+@model MyDigitalMenu.ViewModel.FoodViewMainModel
+<meta charset="UTF-8">
+@{
+
+    int TotalOrder = 0;
+    double TotalPrice = 0;
+    bool OrderStade = false;
+}
+@*
+    Toster için eklendi.
+*@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .title {
+        color: #fff;
+        text-shadow: 1px 1px 10px #000,1px 1px 15px rgba(0,0,0,.9),1px 1px 20px rgba(0,0,0,.8);
+        line-height: 130%;
+        z-index: 10;
+        margin: 0 0 20px;
+    }
+
+    .sidepage-hero__logo--s {
+        width: 30%;
+        max-width: 500px;
+        z-index: 10
+    }
+
+    @@media screen and (min-width:1024px) {
+        .sidepage-hero__logo--s {
+            width: 17%
+        }
+    }
+
+    .sidepage-hero__btn {
+        color: #fff;
+        z-index: 1;
+        font-weight: 600;
+        border: 1px solid #fff;
+        border-radius: 1242px;
+        background-color: rgba(0,0,0,.4);
+    }
+
+    .MenuyeDon {
+        position: absolute;
+        top: 40%;
+        z-index: 1;
+    }
+
+    .justify-content-center {
+        margin-top:
+    }
+
+    .Siparisim {
+        position: fixed;
+        /* left: 90%;
+        top: 78%;*/
+        z-index: 2;
+        border-radius: 100px;
+        right: 15px;
+        bottom: 15px;
+    }
+
+    .logo1 {
+        position: absolute;
+        left: 35%;
+        top: 3%;
+        z-index: 5;
+        width: 30%;
+        height: auto;
+        /* min-width: 139px;
+        min-height: auto;*/
+        /* z-index: 2;*/
+    }
+
+
+
+    /* Kapat Düğmesi */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+<img src="~/images/arka_plan.png" style="width:auto;height:30% !important" />
+@*<img src="~/images/arka_plan.png" style="width:100%;max-height:40em!important;min-height:24em;" />*@
+
+<div class="col-example img-center"><img class="logo1" src="~/images/web_logo.png" /></div>
+<div class="d-flex justify-content-center " style="z-index: 5; margin-top: -19%; font-size:2vw;">
+    <div class="col-example">
+        <p class="title" style="color: white; font-size: 2vw; "><b>@Model.Language.FirstOrDefault(x => x.Code == ViewBag.Category.Code).Text</b></p>
+        <input style="display:none !important ; text-align:center;" type="text" id="CategoryId" name="name" value="@ViewBag.Category.CategoryId" />
+
+    </div>
+</div>
+@*@if (ViewBag.Diller.Culture == 1)
+    { }*@
+<div class="d-flex justify-content-center">
+    @*<div class="col-example">col</div>
+        <div class="-example">col</div>MenuyeDon*@
+    <div class="col-example">
+        <a style="text-align: center; color: white; width: 100%; font-size: 2vw;" class="text-center !important sidepage-hero__btn btn btn-outline-dark !important btn-lg btn-block" href="~/Category/Index?id=@ViewBag.RestaurantId&TableId=@ViewBag.TableId">
+            <i style="color: white" class="fa fa-arrow-left"></i><b>@Model.Language.FirstOrDefault(x => x.Code == "MenuyeDon").Text</b>
+        </a>
+    </div>
+</div>
+
+<br />
+<div>
+    <a style="margin-top: 9.5%;" class="row" href="https://www.instagram.com/saklivadikartepe" target="_blank">
+        <img class="ml-2" src="~/images/insta-badge.png" width="150">
+        @*<img src="https://kokoyakisushi.dijital.menu/img/insta-badge.png" width="150">*@
+        <div class="btn-action"> <span style="padding: 11px ; margin-left:2320%;margin-top:10px;" class="badge bg-primary"> TAKİP ET</span></div>
+    </a>
+</div>
+
+
+<section class="flat-row flat-tab-menu menu-2">
+    <div class="container">
+        <div class="row">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 flat-tabs ">
+
+                <div class="content-tab">
+                    <div class="content-inner">
+                        @using (Html.BeginForm("AddOrder", "Menu", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div style="display:none !important">
+                                <input type="text" id="TableId" name="TableId" value="@ViewBag.TableId" />
+                                <input type="text" id="OrderId" name="OrderId" value="" />
+                                <input type="text" id="RestaurantId" name="RestaurantId" value="@ViewBag.RestaurantId" />
+                                <input type="submit" id="AddOrderSubmit" name="name" value="Ekle" />
+                            </div>
+
+                        }
+                        @foreach (var food in Model.FoodViewModel)
+                        {
+                            <ul class="menu-fd">
+                                <li>
+                                    <div class="d-flex  flex-row  media-wrap">
+
+                                        <div class="col-xs-2 col-md-2 col-xl-2 col-lg-2 col-sm-2">
+                                            <a href="#" class="pull-left">
+                                                <img id="myImg" style="border-radius: 20%;margin-top:0.6%" src="~/FoodImages/@food.FoodImageUrl" alt="food" class="img-responsive">
+                                            </a>
+                                        </div>
+
+                                        <div class="col-xs-5 col-md-7 col-xl-7 col-lg-7 col-sm-6">
+                                            @if (Model.Language.FirstOrDefault(x => x.Code == food.Code) != null)
+                                            {
+                                                <h6><a href="#">@Model.Language.FirstOrDefault(x => x.Code == food.Code).Text</a></h6>
+                                            }
+                                            else
+                                            {
+                                                <h6><a href="#">@food.FoodName</a></h6>
+                                            }
+
+                                        </div>
+
+                                        <div class="col-md-1 col-xs-2 col-xl-1 col-lg-1 col-sm-2 text-right">
+                                            <span style="text-align:right">@food.FoodPrice₺</span>
+                                        </div>
+                                        <div style="margin-top:-2%;" class="col-md-1 col-xs-2 col-xl-1 col-lg-1 col-sm-2  text-left ">
+                                            @if (ViewBag.IsOrder)
+                                            {
+                                                <button class="btn btn-info custom-class btn btn-block" style=" max-width: 38px; margin-top: 10%;" onclick="AddOrder(@food.FoodId)">
+                                                    <span class="fa fa-plus custom-class"></span>
+                                                </button>
+                                            }
+
+                                        </div>
+
+                                        <ul class="menu-in">
+                                            @foreach (var Fooditem in food.FoodItems)
+                                            {
+                                                if (Model.Language.FirstOrDefault(x => x.Code == Fooditem.Text) != null)
+                                                {
+                                                    <li>@Model.Language.FirstOrDefault(x => x.Code == Fooditem.Text).Text</li>
+                                                }
+                                                else
+                                                {
+                                                    <li>@Fooditem.Text</li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+
+                                </li>
+                            </ul>
+
+
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<div class="w3-container">
+
+    @if (ViewBag.IsOrder)
+    {
+        <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-info btn-lg Siparisim">
+            Sepetim
+            <img src="data:image/png;base64,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" width="30" height="30" />
+        </button>
+    }
+    <div style="z-index:99" id="id01" data-backdrop="static" class="w3-modal">
+        <div data-backdrop="static" class="w3-modal-content">
+            <div data-backdrop="static" class="w3-container">
+                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <br />
+                <div data-backdrop="static" class="row">
+                    <div data-backdrop="static" class="col-12">
+                        <table id="FoodTable" class="table table-striped table-hover text-center table-sm">
+                            <thead>
+                                <tr class="FontSize">
+                                    <th>Ürün Adı</th>
+                                    <th></th>
+                                    <th>Adedi</th>
+                                    <th></th>
+                                    <th>Durum</th>
+                                    <th>Toplam</th>
+                                </tr>
+                            </thead>
+                            @*(Model.Language.FirstOrDefault(x => x.Code == food.Code) != null)*@
+                            <tbody>
+                                @foreach (var item in ViewBag.TotalOrder)
+                                {
+
+                                    <tr class="FontSize">
+                                        <td>@item.FoodName</td>
+                                        @*<td>@item.Price ₺</td>*@
+
+                                        <td>
+                                            @if (item.State == 1)
+                                            {
+                                                <button class="btn btn-danger custom-class" onclick="Orderdecrease(@item.OrderId,this)"><span class="fa fa-minus small"></span></button>
+                                            }
+                                        </td>
+                                        <td id="@item.OrderId">@item.FoodCount</td>
+                                        <td>
+                                            @if (item.State == 1)
+                                            {
+                                                <button class="btn btn-info custom-class" onclick="Orderincrease(@item.OrderId,this)"><span class="fa fa-plus custom-class"></span></button>
+                                            }
+                                        </td>
+                                        @if (item.State == 1)
+                                        {
+                                            <td>Sepette</td>
+                                        }
+                                        else if (item.State == 2)
+                                        {
+                                            <td>Sipraiş verildi</td>
+                                            OrderStade = true;
+                                        }
+                                        else if (item.State == 3)
+                                        {
+                                            <td>Hazırlanıyor</td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        <td>@(item.Price* item.FoodCount) ₺</td>
+                                        @if (item.State == 1)
+                                        {
+                                            @*<td>
+                                                    <button class="btn btn-danger custom-class" onclick="DeleteItem(@item.OrderId)"><span class="fa fa-trash small"></span></button>
+                                                </td>*@
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+                                    </tr>
+                                    TotalOrder = TotalOrder + item.FoodCount;
+                                    TotalPrice = TotalPrice + (item.Price * item.FoodCount);
+                                }
+
+                            </tbody>
+                            <tfoot>
+                                <tr class="FontSize">
+                                    <td><b>Toplam</b></td>
+                                    <td></td>
+                                    <td class="text-center text-danger">
+                                        <h2 class="FontSize">@TotalOrder</h2>
+                                    </td>
+                                    <td></td>
+                                    <td class="text-center text-danger">
+                                        <h2 class="FontSize">@TotalPrice ₺    </h2>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <section class="flat-row flat-tab-menu menu-2">
+
+
+                    <div class="container">
+                        <div class="row">
+
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                @if (!OrderStade)
+                                {
+                                    <button class="btn btn-danger" onclick="EmtyBasket()"> <span class="fa fa-send mr-2"></span>Sepeti Boşalt</button>
+                                }
+                                <button class="btn btn-success" onclick="ToOrder()"> <span class="fa fa-send mr-2"></span>Sipariş Ver</button>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/javascript/jquery.min.js"></script>
+<script>
+    function AddOrder(id) {
+        console.log(id);
+        document.getElementById("OrderId").value = id;
+        document.getElementById('AddOrderSubmit').click();
+
+        //Toaster eklendi.
+        Command: toastr["success"]("Ürün sepete eklendi.", "Başarılı")
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    }
+    function ToOrder() {
+        var CategoryId = document.getElementById("CategoryId").value;
+        var RestaurantId = document.getElementById("RestaurantId").value;
+        var TableId = document.getElementById("TableId").value;
+        var url = '/Menu/ToOrder?id=' + TableId + '&CategoryId=' + CategoryId + '&RestaurantId=' + RestaurantId + '';
+        window.location.href = url;
+    }
+    function EmtyBasket() {
+        var TableId = document.getElementById("TableId").value;
+        var CategoryId = document.getElementById("CategoryId").value;
+        var RestaurantId = document.getElementById("RestaurantId").value;
+        var url = '/Menu/EmtyBasket?id=' + TableId + '&CategoryId=' + CategoryId + '&RestaurantId=' + RestaurantId + '';
+        window.location.href = url;
+    }
+
+    function DeleteItem(id) {
+        var CategoryId = document.getElementById("CategoryId").value;
+        var RestaurantId = document.getElementById("RestaurantId").value;
+        var url = '/Menu/OrderDelete?id=' + id + '&CategoryId=' + CategoryId + '&RestaurantId=' + RestaurantId + '';
+        window.location.href = url;
+    }
+    //function Orderincrease(id) {
+    //    var CategoryId = document.getElementById("CategoryId").value;
+    //    var RestaurantId = document.getElementById("RestaurantId").value;
+    //    var url = '/Menu/Orderincrease?id=' + id + '&CategoryId=' + CategoryId + '&RestaurantId=' + RestaurantId + '';
+    //    window.location.href = url;
+    //}
+</script>
+
+<script type="text/javascript">
+    function Orderdecrease(id, r) {
+        var CategoryId = document.getElementById("CategoryId").value;
+        var RestaurantId = document.getElementById("RestaurantId").value;
+        var data = new Object();
+        data.id = id;
+        data.CategoryId = CategoryId;
+        data.RestaurantId = RestaurantId;
+        $.ajax({
+            url: '/Menu/Orderdecrease',
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                if (data.Control == true) {
+                    if (data.FoodCount == 0) {
+                        var i = r.parentNode.parentNode.rowIndex;
+                        document.getElementById("FoodTable").deleteRow(i);
+                    }
+                    else {
+                        document.getElementById(id).innerHTML = data.FoodCount;
+                    }
+
+                }
+            },
+        });
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    function Orderincrease(id) {
+        var CategoryId = document.getElementById("CategoryId").value;
+        var RestaurantId = document.getElementById("RestaurantId").value;
+        var data = new Object();
+        data.id = id;
+        data.CategoryId = CategoryId;
+        data.RestaurantId = RestaurantId;
+        $.ajax({
+            url: '/Menu/Orderincrease',
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                if (data.Control == true) {
+
+                    document.getElementById(id).innerHTML = data.FoodCount;
+
+
+                }
+            },
+        });
+    }
+
+</script>

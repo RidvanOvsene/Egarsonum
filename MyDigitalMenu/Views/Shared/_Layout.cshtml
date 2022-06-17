@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>@*@ViewBag.Title -*@ E-Garsonum</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" type="text/css" href="~/stylesheets/bootstrap.css">
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="~/stylesheets/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" type="text/css" href="~/stylesheets/responsive.css">
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="~/stylesheets/colors/color1.css" id="colors">
+    <!-- Animation Style -->
+    <link rel="stylesheet" type="text/css" href="~/stylesheets/animate.css">
+    <link rel="icon" type="image/png" href="~/images/favicon.png" />
+    <link href="~/Css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    <center>
+        <section class="loading-overlay">
+            <div class="Loading-Page">
+                <h2 class="loader">Loading</h2>
+            </div>
+        </section>
+    </center>
+   
+
+    <div class="@*container body-conten*@t">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <!-- Javascript -->
+    <script type="text/javascript" src="~/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="~/javascript/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery.easing.js"></script>
+    <script type="text/javascript" src="~/javascript/imagesloaded.min.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery-waypoints.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery.cookie.js"></script>
+    <script type="text/javascript" src="~/javascript/parallax.js"></script>
+    <script type="text/javascript" src="~/javascript/smoothscroll.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="~/javascript/owl.carousel.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery-validate.js"></script>
+    <!-- <script type="text/javascript" src="javascript/switcher.js"></script> -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvV0EE3yFozGhjmUv3BgoyviVdXzCwHlk"></script>
+    <script type="text/javascript" src="~/javascript/gmap3.min.js"></script>
+    <script type="text/javascript" src="~/javascript/main.js"></script>
+    <!-- Revolution Slider -->
+    <script type="text/javascript" src="~/javascript/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="~/javascript/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="~/javascript/slider.js"></script>
+    <script>
+        function LogOut(Id) {
+            var url = '/Account/Login/';
+            window.location.href = url;
+        }
+    </script>
+
+</body>
+</html>

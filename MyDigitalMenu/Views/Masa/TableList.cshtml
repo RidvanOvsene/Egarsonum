@@ -1,0 +1,115 @@
+﻿@model List<MyDigitalMenu.ViewModel.TableStatusViewModel>
+@{
+    ViewBag.Title = "TableList";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+<style id="form1">
+    img.fixed {
+        /* position: fixed;
+        right: 50px;*/
+    }
+
+    body {
+    }
+</style>
+<style>
+    /*#masa1 {*/
+        /*       padding-left: 0px;
+        margin: 10px;*/
+    /*}*/
+
+    #masa2 {
+         margin-top: 10px;
+        margin-left: 30px;
+
+        margin: 0px;
+    }
+
+    img {
+        width: 150px;
+        height: 150px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <center>  <h2>Masalarım</h2></center>
+        <br />
+        @foreach (var item in Model)
+        {
+            if (item.OrderStatus == 1)
+            {
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" Title="Sipariş Müşterinin Sepetinde ">
+                    <center>
+
+                        <div id="masa2" class="card ">
+                            <a href="#">
+                                <img src="~/images/icon_siparis.png" />
+                            </a>
+                            <div class="card-body">
+                                <h5 style="color: lightblue; left: 100px" class="card-title"><b>@item.SectionName-@item.TableName</b></h5>
+                                <a href="~/Masa/TableOrder/@item.TableId">Sipariş Detayı</a>
+                                <a href="~/Masa/TableQr/@item.TableId">Qr Link</a>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            }
+            else if (item.OrderStatus == 2)
+            {
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-1.5" Title="Onayda ">
+                    <center>
+                        <div id="masa2" class="card">
+                            <a href="#">   <img src="~/images/icon_onay.png" /> @*<img src="~/images/Hazırlanıyor (2)_120x120.jpg" class="card-img-top" alt=" masa 2" />*@</a>
+                            <div class="card-body">
+                                <h5 style="color:darkblue ; left:100px" class="card-title"><b>@item.SectionName-@item.TableName</b></h5>
+                                <a href="~/Masa/TableQr/@item.TableId">Qr Link </a>
+                                <a href="~/Masa/TableOrder/@item.TableId">Sipariş Detayı</a>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            }
+            else if (item.OrderStatus == 3)
+            {
+
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-1.5"  Title="Dolu Masa ">
+                    <center>
+                        <div id="masa2" class="card">
+                            <a href="#"> <img src="~/images/icon_hazirlaniyor (1).png" class="card-img-top" alt=" masa 3" /></a>
+                            <div class="card-body">
+                                <h5 style="color:darkred ; left:100px" class="card-title"><b>@item.SectionName-@item.TableName</b></h5>
+                                <a href="~/Masa/TableQr/@item.TableId">Qr Link </a>
+                                <a href="~/Masa/TableOrder/@item.TableId">Sipariş Detayı</a>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            }
+            else
+           
+            {
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-1.5" Title="Boş Masa ">
+                                   <div id="masa2">
+                        <center>
+                            <a href="#">
+                                                          <center>
+                                    <img Title="Boş Masa " alt=" Boş Masa" src="~/images/icon_bos.png" />
+                                </center>
+                            </a>
+                        </center>
+                        <div class="card-body">
+                            <center>
+                                <h5 style="color:grey ; left:100px" class="card-title"><b>@item.SectionName-@item.TableName</b></h5>
+                                <a href="~/Masa/TableQr/@item.TableId">Qr Link</a>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        }
+        @*<center><img src="~/images/Bosmasa_120x120.jpg" class="card-img-top" alt=" masa 4" /></center>*@
+    </div>
+</div>

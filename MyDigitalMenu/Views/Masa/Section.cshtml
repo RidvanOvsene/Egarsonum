@@ -1,0 +1,81 @@
+﻿@model  MyDigitalMenu.Models.Section
+@{
+    ViewBag.Title = "Section";
+    Layout = "~/Views/Shared/_Layout - Manager.cshtml";
+}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+@if (Model == null)
+{
+    <h2>Bölge Ekle</h2>
+    <br />
+    <div class="row">
+        <div class="form-group col-12">
+            @using (Html.BeginForm("CreateSection", "Masa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @*<input type="number" name="Sira" value="" placeholder="Masa Numarasını Giriniz" />*@
+                <input type="text" name="Adi" value="" placeholder="Bölge Adını Giriniz" />
+                <input type="submit" name="name" value="Kayit" />
+            }
+        </div>
+
+        <br />
+        @*<div class="title-section style1 martp-0px">
+                <div class="top-section col-xs-12">
+                    <a style="text-align: center;color: #e44c2a" class="btn btn-outline-dark !important btn-sm btn-block" href="~/Manager/Management"><i style="color: #e44c2a" class="fa fa-arrow-left"></i> Geri</a>
+                </div>
+            </div>*@
+        <br />
+
+    </div>
+}
+
+else
+{
+    <h2>Kategori Düzenle</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @using (Html.BeginForm("EditSection", "Masa", new { id = Model.Id }, FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label for="ksayi">Kategori Adı</label>
+                        <input class="form-control" type="text" name="Name" value="@Model.Name" required />
+                    </div>
+             
+                    <br />
+                    <button class="btn btn-success btn-icon-split btn-sm mb-2 ml-3" type="submit" value="Düzenle">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <span class="text">Düzenle</span>
+                    </button>
+
+                    <div class="form-group">
+                        <br />
+                        <a href="~/Category/List"><i class="fa fa-arrow-left"></i><b> Geri </b></a>
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+}
+
